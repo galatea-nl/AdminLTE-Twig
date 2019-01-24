@@ -1,0 +1,16 @@
+{
+    "name": "bernard-ng/adminlte-twig",
+    "description": "twig version of the open source adminLTE template",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "bernard-ng",
+            "email": "ngandubernard@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "twig/twig": "^2.6"
+    }
+}
