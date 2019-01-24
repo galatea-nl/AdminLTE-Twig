@@ -1,6 +1,9 @@
 <?php
 namespace AdminTwig\Router;
 
+use AdminTwig\App;
+
+
 
 /**
  * les actions liee aux routing
@@ -16,9 +19,7 @@ trait RouterAwareAction
      */
     private function getRouter()
     {
-        $router = new Router();
-        require(ROOT . "/src/routes.php");
-        return $router;
+        return App::getInstance()->getRouter();
     }
 
 
