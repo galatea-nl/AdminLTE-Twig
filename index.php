@@ -9,7 +9,7 @@ const ROOT = __DIR__;
 
 
 // Here we go
-$route = App::getInstance()->getRouter()->run();;
+$route = App::getInstance()->getRouter()->run();
 if (!is_null($route)) {
     return call_user_func_array($route->getController(), $route->getMatches());
 }

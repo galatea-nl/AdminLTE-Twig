@@ -4,14 +4,66 @@
  * routing and rendering
  */
 return function ($router, $twig) {
-    $render = function($view) {
-        global $twig;
-        echo $twig->render($view);
-        exit();
-    };
+
+    dashboard_routes : {
+        $router->get('/', function () use ($twig) {
+            echo $twig->render('index.html.twig');
+            exit();
+        });
+
+        $router->get('index', function () use ($twig) {
+            echo $twig->render('index.html.twig');
+            exit();
+        }, 'index');
+    
+        $router->get('index2', function () use ($twig) {
+            echo $twig->render('index2.html.twig');
+            exit();
+        }, 'index');
+    
+        $router->get('index3', function () use ($twig) {
+            echo $twig->render('index3.html.twig');
+            exit();
+        }, 'index');
+    }
 
 
-    $router->get('index', $render('index.html.twig'), 'index');
-    $router->get('index2', $render('index2.html.twig'), 'index2');
-    $router->get('index3', $render('index3.html.twig'), 'index3');
+    widgets_routes : {
+
+    }
+
+
+    charts_routes : {
+
+    }
+
+
+    ui_elements_routes : {
+
+    }
+
+
+    forms_routes : {
+
+    }
+
+
+    tables_routes : {
+
+    }
+
+
+    mailbox_routes : {
+
+    }
+
+
+    pages_routes : {
+
+    }
+
+    
+    extras_routes : {
+
+    }
 };

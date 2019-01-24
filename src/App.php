@@ -1,6 +1,8 @@
 <?php
 namespace AdminTwig;
 
+use AdminTwig\Router\Router;
+
 
 class App
 {
@@ -47,7 +49,7 @@ class App
     public function getRouter(): Router
     {
         if (is_null($this->router)) {
-            $this->router = new Router($_GET['url'] ?? $_SERVER['REQUEST_URI'] ?? '/');
+            $this->router = new Router();
             (require  ROOT . "/src/routes.php")($this->router, $this->getRender());
             return $this->router;
         }
