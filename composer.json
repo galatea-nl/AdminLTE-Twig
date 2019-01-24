@@ -12,5 +12,10 @@
     "minimum-stability": "stable",
     "require": {
         "twig/twig": "^2.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "AdminTwig\\": "src/"
+        }
     }
 }
