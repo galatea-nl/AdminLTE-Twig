@@ -2,39 +2,83 @@
 namespace AdminTwig;
 
 
-class Application
+class App
 {
 
-    public $viewpath = "../../pages";
-    public $rootpath = "../../";
+    public $viewpath;
+    public $rootpath;
+    private $twig = null;
+    private $router = null;
+    private static $instance;
 
 
-    public function getRender(): \Twig_Environment
+    /**
+     * get the instance of the application
+     *
+     * @return self
+     */
+    public static function getInstance(): self
     {
-        $extensions = require 'extensions.php';
-        $loader = new \Twig_Loader_Filesystem($this->viewpath, $this->rootpath);
-        $twig = new \Twig_Environment($loader, [
-            'debug' => true
-        ]);
-
-        $twig->addExtension(new \Twig_Extension_Debug());
-
-        // loads all twig extensions
-        if (!empty($extensions)) {
-            foreach($extensions as $extension) {
-                $twig->addExtension(new $extension());
-            }
+        if (is_null(self::$instance)) {
+            self::$instance = new self(VIEWPATH, ROOT);
         }
+        return self::$instance;
     }
 
 
     /**
-     * run the app
+     * set up view path
      *
-     * @return void
+     * @param string $viewpath
+     * @param string $rootpath
      */
-    public function run()
+    public function __construct(string $viewpath = VIEWPATH, string $rootpath = ROOT)
     {
+        $this->viewpath = $viewpath;
+        $this->rootpath = $rootpath;
+    }
 
+
+    /**
+     * get the router
+     *
+     * @return Router
+     */
+    public function getRouter(): Router
+    {
+        if (is_null($this->router)) {
+            $this->router = new Router($_GET['url'] ?? $_SERVER['REQUEST_URI'] ?? '/');
+            (require  ROOT . "/src/routes.php")($this->router, $this->getRender());
+            return $this->router;
+        }
+        return $this->router;
+    }
+
+
+    /**
+     * get the renderer
+     *
+     * @return \Twig_Environment
+     */
+    public function getRender(): \Twig_Environment
+    {
+        if (is_null($this->twig)) {
+            $extensions = require 'extensions.php';
+            $loader = new \Twig_Loader_Filesystem($this->viewpath, $this->rootpath);
+            $twig = new \Twig_Environment($loader, [
+                'debug' => true
+            ]);
+
+            $twig->addExtension(new \Twig_Extension_Debug());
+            if (!empty($extensions)) {
+                foreach($extensions as $extension) {
+                    $twig->addExtension(new $extension());
+                }
+            }
+
+            $this->twig = $twig;
+            return $this->twig;
+        }
+        return $this->twig;
     }
 }
