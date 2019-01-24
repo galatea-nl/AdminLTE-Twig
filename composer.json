@@ -3,6 +3,17 @@
     "description": "twig version of the open source adminLTE template",
     "type": "project",
     "license": "MIT",
+    "keywords": [
+        "css",
+        "js",
+        "less",
+        "responsive",
+        "back-end",
+        "template",
+        "theme",
+        "web",
+        "admin"
+      ],
     "authors": [
         {
             "name": "bernard-ng",
